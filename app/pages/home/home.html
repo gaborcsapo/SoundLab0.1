@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Fuck this</ion-title>
+        <button  menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <audio id = 'sound' controls='controls' crossOrigin = 'anonymus'></audio>
+  <button (click)="chooseFilter($event)">Choose Filter</button>
+  <ion-list>
+      <ion-range *ngFor="let item of currentProps" (ionChange)="update(item,$event.value)">
+        <ion-label range-left>{{item}}</ion-label>
+        <ion-label range-right>{{currentFilter[item]['value']}}</ion-label>
+      </ion-range>
+  </ion-list>
+</ion-content>
