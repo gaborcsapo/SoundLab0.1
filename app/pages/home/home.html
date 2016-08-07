@@ -9,11 +9,24 @@
 
 <ion-content padding>
   <audio id = 'sound' controls='controls' crossOrigin = 'anonymus'></audio>
-  <button (click)="chooseFilter($event)">Choose Filter</button>
+  <ion-item>
+    <ion-select (ionChange)="chooseFilter($event)">
+      <ion-option value="Lowpass">Lowpass</ion-option>
+      <ion-option value="Highpass">Highpass</ion-option>
+      <ion-option value="Chorus">Chorus</ion-option>
+      <ion-option value="Bitcrusher">Bitcrusher</ion-option>
+    </ion-select>
+  </ion-item>
   <ion-list>
-      <ion-range *ngFor="let item of currentProps" (ionChange)="update(item,$event.value)">
-        <ion-label range-left>{{item}}</ion-label>
-        <ion-label range-right>{{currentFilter[item]['value']}}</ion-label>
-      </ion-range>
+    <ion-row *ngFor="let item of currentProps" center>
+      <ion-col width-75>
+        <ion-range (ionChange)="update(item,$event.value)">
+          <ion-label range-left>{{item}}</ion-label>
+          </ion-range>
+      </ion-col>
+      <ion-col width-25>
+        <ion-label range-right>{{currentFilter['displayed'][item]['value'].toFixed(2)}}</ion-label>
+      </ion-col>
+    </ion-row>
   </ion-list>
 </ion-content>
