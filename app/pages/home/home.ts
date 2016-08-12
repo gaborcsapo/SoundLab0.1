@@ -1,42 +1,35 @@
-import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
-// import {Filter} from '../../components/filter';
+import {Component, ViewChild, AfterViewInit} from '@angular/core';
+import {NavController, ModalController, Platform, NavParams, ViewController, PopoverController} from 'ionic-angular';
+import {filterService} from '../../services/filterService';
+import {filterModal} from '../../components/filterModal';
+import {infoPopOver} from '../../components/infoPopOver';
+import {mediaPlayer} from '../../components/mediaPlayer';
 declare var Tuna:any;
+declare var PWorker:any;
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
-  // directives:[Filter],
+  directives:[mediaPlayer],
+  providers:[filterService]
 })
-export class HomePage {
-  constructor(private navCtrl: NavController) {}
+export class HomePage implements AfterViewInit{
+  constructor(private navCtrl: NavController, private filterService: filterService, private modalCtrl: ModalController, 
+              private popoverController : PopoverController) {}
   source:any;
   context = new AudioContext();
   filter:any;
   currentFilter:any;
   currentProps:any;
   tuna = new Tuna(this.context);
-  filters = {'Chorus': {'displayed': {'rate':{'value': 0, 'min':0.01, 'max':8, 'log':true},
-                                      'feedback':{'value': 0, 'min':0, 'max':1, 'log':false},
-                                      'delay':{'value': 0, 'min':0, 'max':1, 'log':true}},
-                        'type': 'none'},
-              'Lowpass':{'displayed': {'frequency':{'value': 20, 'min':20, 'max':22050, 'log':true},
-                                      'Q':{'value': 0.001, 'min':0.001, 'max':100, 'log':true},
-                                      'gain':{'value': -40, 'min':-40, 'max':40, 'log':true}},
-                         'type':'lowpass'},
-              'Highpass':{'displayed': {'frequency':{'value': 20, 'min':20, 'max':22050, 'log':true},
-                                        'Q':{'value': 0.001, 'min':0.001, 'max':100, 'log':true},
-                                        'gain':{'value': -40, 'min':-40, 'max':40, 'log':true}},
-                         'type':'highpass'},
-              'Bitcrusher': {'displayed': {'bits':{'value': 1, 'min':1, 'max':16, 'log':true},
-                                          'normfreq':{'value': 0, 'min':0, 'max':1, 'log':true},
-                                          'bufferSize':{'value': 256, 'min':256, 'max':16384, 'log':true}},
-                            'type': 'none'}
-            }//the filter data should be stored in a service and should be "get" through that
-
+  filters = this.filterService.getFilters();
+  filterList = Object.keys(this.filters);
+  @ViewChild(mediaPlayer)
+  private mediaPlayer:mediaPlayer;
+    
   chooseFilter(event){   
     if (this.filter != undefined)
       this.filter.disconnect();
- 
+  
     this.currentFilter = this.filters[event];
 
     if (this.filters[event]['type'] != 'none'){
@@ -47,7 +40,6 @@ export class HomePage {
     }
     
     this.currentProps = Object.keys(this.currentFilter['displayed']);//read this !!!https://webcake.co/object-properties-in-angular-2s-ngfor/ implement as a pipe and only input currentFilter in the end
-    
     for (var item of this.currentProps) {
       this.filter[item] = this.currentFilter['displayed'][item]['min']
     }
@@ -66,12 +58,24 @@ export class HomePage {
     this.filter[item] = change;  
   }
 
-  ngOnInit(){
-    var audio = <HTMLAudioElement> document.getElementById('sound');
+  ngAfterViewInit(){
+    var audio = this.mediaPlayer.getAudio();    
     var url = 'http://api.soundcloud.com/tracks/240955058/stream' +
         '?client_id=a76e446ebb86aaafa04e563f2e8046f3&callback=processTracks';
     audio.src = url;
-    audio.autoplay = false;
     this.source = this.context.createMediaElementSource(audio);  
+  }
+  
+  openModal(){
+    let modal = this.modalCtrl.create(filterModal);
+    modal.onDidDismiss(data => {
+      this.chooseFilter(data);
+    });
+    modal.present();
+  }
+
+  openPopOver(){
+    let popover = this.popoverController.create(infoPopOver);
+    popover.present();
   }
 }

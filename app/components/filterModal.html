@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Fuck this</ion-title>
+        <button  menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-list (ionChange)='selectOption($event)' radio-group>
+    <ion-list-header>
+        Choose a filter
+    </ion-list-header>
+
+    <ion-item *ngFor="let name of filterList">
+        <ion-label>
+            {{name}}    
+        </ion-label>
+        
+        <ion-radio [value]='name'></ion-radio>
+    </ion-item>
+    </ion-list>
+</ion-content>

@@ -8,15 +8,9 @@
 </ion-header>
 
 <ion-content padding>
-  <audio id = 'sound' controls='controls' crossOrigin = 'anonymus'></audio>
-  <ion-item>
-    <ion-select (ionChange)="chooseFilter($event)">
-      <ion-option value="Lowpass">Lowpass</ion-option>
-      <ion-option value="Highpass">Highpass</ion-option>
-      <ion-option value="Chorus">Chorus</ion-option>
-      <ion-option value="Bitcrusher">Bitcrusher</ion-option>
-    </ion-select>
-  </ion-item>
+  <media-player></media-player>
+  <button (click)='openModal()'>Filter Options</button>
+  <button (click)='openPopOver()'>Filter Options</button>
   <ion-list>
     <ion-row *ngFor="let item of currentProps" center>
       <ion-col width-75>
