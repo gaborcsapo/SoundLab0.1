@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Fuck this</ion-title>
+        <ion-title>SoundLab 0.1</ion-title>
         <button  menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -8,19 +8,36 @@
 </ion-header>
 
 <ion-content padding>
+  <!--element for the custom mediaplayer-->
   <media-player></media-player>
-  <button (click)='openModal()'>Filter Options</button>
-  <button (click)='openPopOver()'>Filter Options</button>
-  <ion-list>
-    <ion-row *ngFor="let item of currentProps" center>
-      <ion-col width-75>
-        <ion-range (ionChange)="update(item,$event.value)">
-          <ion-label range-left>{{item}}</ion-label>
+  <!--choosing the filter here-->
+  <ion-grid>
+        <ion-row>
+            <ion-col width-50 center style="display:table;">
+              <ion-icon name="help-circle" (click)='openPopOver()' style="font-size:36px; vertical-align:center;display:table-cell; vertical-align:middle"></ion-icon>
+              <h2 style="display:table-cell; vertical-align:middle">
+                {{currentFilterName}}
+              </h2>
+            </ion-col>
+            <ion-col>
+              <button dark round (click)='openModal()'>Choose Filter</button>
+            </ion-col>
+        </ion-row>
+  </ion-grid>
+  
+  <!--The properties of the chosen filter listed dynamically-->
+  <ion-card>
+    <ion-list>
+      <ion-row *ngFor="let item of currentProps" center>
+        <ion-col width-75>
+          <ion-range (ionChange)="update(item,$event.value)">
+            <ion-label range-left>{{item}}</ion-label>
           </ion-range>
-      </ion-col>
-      <ion-col width-25>
-        <ion-label range-right>{{currentFilter['displayed'][item]['value'].toFixed(2)}}</ion-label>
-      </ion-col>
-    </ion-row>
-  </ion-list>
+        </ion-col>
+        <ion-col width-25 style="padding:0">
+          <ion-label range-right>{{currentFilter['displayed'][item]['value'].toFixed(2)}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-card>
 </ion-content>

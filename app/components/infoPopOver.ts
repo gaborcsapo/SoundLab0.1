@@ -6,4 +6,11 @@ import {Component} from '@angular/core';
 })
 export class infoPopOver{
     constructor(private navParams: NavParams){}
+    
+    text:string;
+    
+    ngOnInit() {
+        if (this.navParams.data) 
+            this.text = this.navParams.data.data;
+    }
 }

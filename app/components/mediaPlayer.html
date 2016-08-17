@@ -1,17 +1,33 @@
-<ion-grid>
-  <ion-row>
-    <ion-col width-10>
-        <ion-icon name="play" style="font-size: 36px"></ion-icon>
-    </ion-col>
-    <ion-col width-70>
-        <ion-range></ion-range>
-    </ion-col>
-    <ion-col width-20>
-        <input type="range" style="-webkit-appearance: slider-vertical; height:4em;" min="0" max="100" step="1" value="20" />
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<ion-card>    
+    <ion-grid>
+        <ion-row>
+            <ion-col width-80 center>
+                <!--Timeline and play button-->
+                <ion-row>
+                    <ion-col width-100 center>
+                        <ion-range id="range" [(ngModel)]="currentTime" (ionChange)="seekTime($event.value)" [value]="currentTime" min="0" [max]="audio.duration">
+                            <ion-icon (click)="togglePlay()" [name]="icon" style="font-size: 36px;margin-right: 0.8em;" range-left></ion-icon>
+                        </ion-range>
+                    </ion-col>
+                </ion-row>
+                <!--setting playbackrate-->
+                <ion-row>
+                    <ion-col width-100 center>
+                        <ion-range (ionChange)="setPlaybackRate($event.value)" [(ngModel)]="playbackRate" min="50" max="150" step="25" snaps="true">
+                            <ion-label style="width:8em" range-right>Speed: X {{playbackRate/100}}</ion-label>
+                        </ion-range>
+                    </ion-col>
+                </ion-row>  
+            </ion-col>
+            <!--volume changer-->
+            <ion-col width-20 center style="text-align:center;height:100%">
+                <ion-icon name="volume-up" style="margin-bottom:1.5em;"></ion-icon>
+                <input (input)="volumeChange($event.target.value)" type="range" min="0" max="100" step="1" value="20" />
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-card>
+<!--audio tag is needed, because Ioinic 2 beta is still buggy and if I create the tag in JS, I can't set the crossOrigin...-->
+<audio id='sound' crossOrigin='anonymus'></audio>
 
-
-<audio id = 'sound' crossOrigin = 'anonymus'></audio>
-  
+    

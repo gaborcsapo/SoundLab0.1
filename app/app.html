@@ -1,16 +1,13 @@
+<!--slide-in menu-->
 <ion-menu [content]="content">
     <ion-toolbar>
-        <ion-title>Pages</ion-title>
+        <ion-title>SoundLab 0.1</ion-title>
     </ion-toolbar>
     <ion-content>
-    <ion-list>
-        <button ion-item (click)="openPage(loginPage)">
-        History
-        </button>
-        <button ion-item (click)="openPage(signupPage)">
-        About
-        </button>
-    </ion-list>
+            <h2 style="padding:1em; padding-bottom:0;">About</h2>
+            <p style="padding:1em;">This app has been created by Gabor Csapo in August 2016 as a simply sideproject to learn the basics of Angular 2 and Ionic 2. It was never meant to be released, is full of bugs I am aware of and there is a lot to improve (maybe in the future). It has been created using the Beta version of angular and ionic, therefore I faced a lot of hardship during development as the two frameworks contained quite a few untested, buggy components. To overcome the issues, I had to use a few hacky solutions. I believe I achieved my main goal of learning about Ionic 2.</p>
+            <p style="padding:1em;">The app showcases the filters available in the Web Audio API. I intended to include pitch tweaking and paulstreching the audio sample, but the shortness of the summer and the bugs I faced didn't allow me to realize these dreams.</p>
     </ion-content>
 </ion-menu>
+
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>

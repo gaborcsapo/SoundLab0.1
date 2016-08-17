@@ -1,0 +1,12 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/shawnlauzon/typed-soundcloud/b2fd3b91fc9637973f9d39666fd2036180563680/typings.json",
+    "raw": "registry:npm/soundcloud#3.1.2+20160705220732",
+    "main": "index.d.ts",
+    "version": "3.1.2",
+    "global": true,
+    "name": "soundcloud",
+    "type": "typings"
+  }
+}

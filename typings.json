@@ -1,5 +1,7 @@
 {
-  "dependencies": {},
+  "dependencies": {
+    "soundcloud": "registry:npm/soundcloud#3.1.2+20160705220732"
+  },
   "devDependencies": {},
   "globalDependencies": {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504"
