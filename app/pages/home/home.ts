@@ -14,8 +14,6 @@ declare var Tuna:any;
   providers:[filterService]
 })
 export class HomePage implements AfterViewInit{
-  constructor(private navCtrl: NavController, private filterService: filterService, private modalCtrl: ModalController, 
-              private popoverController : PopoverController, private appRef: ApplicationRef) {}
   source:any;
   context = new AudioContext();
   filter:any;
@@ -23,16 +21,19 @@ export class HomePage implements AfterViewInit{
   currentFilterName = "No Filter"
   currentProps:any;
   tuna = new Tuna(this.context);
-  filters = this.filterService.getFilters();
+  filters:any;
   audio:any;
   @ViewChild(mediaPlayer)
   private mediaPlayer:mediaPlayer;
+  constructor(private navCtrl: NavController, private filterService: filterService, private modalCtrl: ModalController, 
+              private popoverController : PopoverController, private appRef: ApplicationRef) {
+                this.filters = this.filterService.getFilters();
+              }
   
   ngAfterViewInit(){
     this.audio = this.mediaPlayer.getAudio(); 
 
     //The beta version I am using is not yet functional on Ionic 2... SO I'm just using this static way to get a song.
-
     var url = 'http://api.soundcloud.com/tracks/274454627/stream' +
         '?client_id=a76e446ebb86aaafa04e563f2e8046f3&callback=processTracks';
     this.audio.src = url;

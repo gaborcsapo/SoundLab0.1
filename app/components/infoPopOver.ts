@@ -5,9 +5,9 @@ import {Component} from '@angular/core';
     templateUrl: './build/components/infoPopOver.html'
 })
 export class infoPopOver{
-    constructor(private navParams: NavParams){}
-    
     text:string;
+
+    constructor(private navParams: NavParams){}
     
     ngOnInit() {
         if (this.navParams.data) 

@@ -7,20 +7,15 @@ import {filterService} from '../services/filterService';
   providers:[filterService]
 })
 export class filterModal {
-    filters:any;
-    filterList:any;
-  constructor(
-      public platform: Platform,
-      public params: NavParams,
-      public viewCtrl: ViewController,
-      private filterService: filterService
-  ) {
-    this.filters = this.filterService.getFilters();
-    this.filterList = Object.keys(this.filters);
+  filters:any;
+  filterList:any;
+  constructor(public platform: Platform, public params: NavParams, public viewCtrl: ViewController, private filterService: filterService) {
+      this.filters = this.filterService.getFilters();
+      this.filterList = Object.keys(this.filters);
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+      this.viewCtrl.dismiss();
   }
   selectOption(event){
       this.viewCtrl.dismiss(event);
